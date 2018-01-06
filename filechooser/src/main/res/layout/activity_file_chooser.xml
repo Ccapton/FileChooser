@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.capton.fc.FileChooserActivity">
+
+    <RelativeLayout
+        android:id="@+id/fileContainer"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/switchSdcard"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            app:srcCompat="@drawable/disk" />
+         <android.support.v7.widget.RecyclerView
+             android:id="@+id/currentPath"
+             android:layout_marginTop="5dp"
+              android:layout_marginRight="4dp"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentTop="true"
+             android:layout_toRightOf="@+id/switchSdcard"
+             android:layout_width="match_parent"
+             android:layout_height="30dp" />
+        <View
+            android:id="@+id/headerDivider"
+            android:layout_below="@+id/switchSdcard"
+            android:background="@color/dividerColor"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_height="2px"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@+id/headerDivider"
+            android:id="@+id/fileRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+</layout>

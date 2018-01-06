@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="actionBarHeight">42dp</dimen>
+    <dimen name="bottomNaviBarHeight">46dp</dimen>
+    <dimen name="backPressIconSize">26dp</dimen>
+    <dimen name="iconMargin">12dp</dimen>
+    <dimen name="titleTextSize">18sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>
