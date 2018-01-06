@@ -12,7 +12,7 @@ import android.support.v4.app.Fragment;
 public class FileChooser {
 
      private Context mContext;
-     private int themeColorRes ;
+     private int themeColorRes = R.color.themeColor;
      private FileChoosenListener fileChoosenListener;
      private String mChoosenFilePath = "";
      private String title = "选择目标";
