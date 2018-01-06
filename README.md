@@ -17,7 +17,7 @@ allprojects {
 build.gradle(Module:app)
 ```
 dependencies {
-	        compile 'com.github.Ccapton:FileChooser:1.0.0'
+	        compile 'com.github.Ccapton:FileChooser:1.0.1'
    }
 ```
 ## 使用方法
