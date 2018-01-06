@@ -20,6 +20,16 @@ dependencies {
 	        compile 'com.github.Ccapton:FileChooser:1.0.1'
    }
 ```
+**重要配置**
+如果你的项目没有配置databinding和vectorDrawables
+请在下图的位置加上这两句代码
+        **vectorDrawables.useSupportLibrary = true**
+        **dataBinding {
+                enabled true
+            }
+         **
+![](https://raw.githubusercontent.com/Ccapton/FileChooser/master/gradle_setting.jpg)
+
 ## 使用方法
 示例代码:
 ```
