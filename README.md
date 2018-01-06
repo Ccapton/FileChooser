@@ -1,7 +1,7 @@
 # FileChooser
 Android文件(路径)选择器，超简单配置 :fire:
 ## 效果
-![](https://raw.githubusercontent.com/Ccapton/FileChooser/master/filechooser.png)
+![](https://raw.githubusercontent.com/Ccapton/FileChooser/master/filechooser2.png)
 ![](https://raw.githubusercontent.com/Ccapton/FileChooser/master/filechooser.gif) 
 
 ## gradle引入
