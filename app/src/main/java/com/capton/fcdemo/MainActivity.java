@@ -22,13 +22,7 @@ public class MainActivity extends AppCompatActivity {
                         ((TextView)findViewById(R.id.hello)).setText(filePath);
                     }
                 });
-                 fileChooser.setThemeColor(R.color.colorPrimary)
-                        .setTitle("选择目录")
-                         .setCurrentPath("/storage/emulated/0/Android/data/com.tencent.mm/files")
-                         .setBackIconRes(R.drawable.back_white)
-                         .setDoneText("OK")
-                         .showFile(false)
-                         .open();
+                 fileChooser.open();
              }
         });
 
