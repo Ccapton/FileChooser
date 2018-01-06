@@ -1,7 +1,7 @@
 # FileChooser
 Android文件(路径)选择器，超简单配置 :fire:
 ## 效果
-![](https://raw.githubusercontent.com/Ccapton/FileChooser/master/filechooser.png) 
+![](https://raw.githubusercontent.com/Ccapton/FileChooser/master/filechooser.png)
 ![](https://raw.githubusercontent.com/Ccapton/FileChooser/master/filechooser.gif) 
 
 ## gradle引入
@@ -29,6 +29,14 @@ FileChooser fileChooser = new FileChooser(MainActivity.this, new FileChooser.Fil
                         ((TextView)findViewById(R.id.hello)).setText(filePath);
                     }
                 });
+		/*
+		* 1.默认配置
+		*/
+		fileChooser.open();
+		
+		/*
+		* 2.自定义配置
+		*/
                  fileChooser.setThemeColor(R.color.colorPrimary)
                         .setTitle("选择目录")
                          .setCurrentPath("/storage/emulated/0/Android/data/com.tencent.mm/files")
