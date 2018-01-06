@@ -51,13 +51,11 @@ public class FileChooser {
      public FileChooser(Fragment fragment , FileChoosenListener fileChoosenListener) {
           this.mContext = fragment.getContext();
           this.fileChoosenListener = fileChoosenListener;
-          this.themeColorRes = R.color.themeColor;
-     }
+      }
      public FileChooser(Activity activity ,FileChoosenListener fileChoosenListener) {
           this.mContext = activity;
           this.fileChoosenListener = fileChoosenListener;
-          this.themeColorRes = R.color.themeColor;
-     }
+      }
      public void open(){
           FileChooserActivity.mFileChooser = this;
           Intent intent = new Intent(mContext,FileChooserActivity.class);
