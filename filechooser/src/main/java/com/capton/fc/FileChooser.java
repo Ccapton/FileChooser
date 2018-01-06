@@ -12,7 +12,7 @@ import android.support.v4.app.Fragment;
 public class FileChooser {
 
      private Context mContext;
-     private int themeColorRes;
+     private int themeColorRes ;
      private FileChoosenListener fileChoosenListener;
      private String mChoosenFilePath = "";
      private String title = "选择目标";
@@ -51,10 +51,12 @@ public class FileChooser {
      public FileChooser(Fragment fragment , FileChoosenListener fileChoosenListener) {
           this.mContext = fragment.getContext();
           this.fileChoosenListener = fileChoosenListener;
+          this.themeColorRes = R.color.themeColor;
      }
      public FileChooser(Activity activity ,FileChoosenListener fileChoosenListener) {
           this.mContext = activity;
           this.fileChoosenListener = fileChoosenListener;
+          this.themeColorRes = R.color.themeColor;
      }
      public void open(){
           FileChooserActivity.mFileChooser = this;
