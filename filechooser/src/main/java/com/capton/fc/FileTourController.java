@@ -36,11 +36,11 @@ public class FileTourController {
         //}
         this.mContext = context;
         rootFile = getRootFile();
+        System.out.println("FileTourController.getRootFile " + rootFile.getAbsolutePath());
         if(currentFile == null) {
             this.currentFile = rootFile;
         } else if(!currentFile.exists()) {
             this.currentFile = rootFile;
-            System.out.println("你设定的文件目录不存在");
         } else
             isRootFile = false;
 
@@ -86,10 +86,8 @@ public class FileTourController {
 
     public File getRootFile(){
         if(sdcardIndex == 1){
-            System.out.println("FileTourController.getRootFile " + getSDcard1());
             return getSDcard1();
         } else {
-            System.out.println("FileTourController.getRootFile " + getSDcard0());
             return getSDcard0();
         }
     }

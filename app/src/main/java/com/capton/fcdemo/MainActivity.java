@@ -1,5 +1,6 @@
 package com.capton.fcdemo;
 
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_main);
+
+      /*  FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        final DemoFragment demoFragment = new DemoFragment();
+        transaction.add(R.id.fragment,demoFragment);
+        transaction.commitNow();
+     */
+
         findViewById(R.id.hello).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
