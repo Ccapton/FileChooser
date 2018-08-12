@@ -23,7 +23,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter {
 
     public CommonAdapter(Context context, ArrayList<T> dataList, int resId) {
         this.context = context;
-        this.resId=resId;
+        this.resId = resId;
         this.dataList = dataList;
     }
 
@@ -32,22 +32,19 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter {
         return position;
     }
 
-
-
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        bindView(holder,dataList.get(position),position);
+        bindView(holder, dataList.get(position), position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(itemClickListener!=null)
-                    itemClickListener.onItemClick(holder.itemView,position);
-
+                if (itemClickListener != null)
+                    itemClickListener.onItemClick(holder.itemView, position);
             }
         });
     }
 
-    public abstract void bindView(RecyclerView.ViewHolder holder,T data,int position);
+    public abstract void bindView(RecyclerView.ViewHolder holder, T data, int position);
 
     @Override
     public int getItemCount() {
@@ -56,32 +53,34 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new CommonViewHolder(LayoutInflater.from(context).inflate(resId,parent,false));
+        return new CommonViewHolder(LayoutInflater.from(context).inflate(resId, parent, false));
     }
 
-
-    public void add(T t){
+    public void add(T t) {
         dataList.add(t);
         notifyDataSetChanged();
     }
-    public void add(T t,int index){
-        dataList.add(index,t);
+
+    public void add(T t, int index) {
+        dataList.add(index, t);
         notifyDataSetChanged();
     }
-    public void remove(T t){
+
+    public void remove(T t) {
         dataList.remove(t);
         notifyDataSetChanged();
     }
-    public void remove(int index){
+
+    public void remove(int index) {
         dataList.remove(index);
         notifyDataSetChanged();
     }
-    public void setData(List<T> dataList){
+
+    public void setData(List<T> dataList) {
         this.dataList = (ArrayList<T>) dataList;
     }
 
-
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 

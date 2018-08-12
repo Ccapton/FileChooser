@@ -19,12 +19,12 @@ public class CurrentFileAdapter extends CommonAdapter<File> {
 
     @Override
     public void bindView(RecyclerView.ViewHolder holder, File data, int position) {
-      TextView textView = holder.itemView.findViewById(R.id.fileName);
-      textView.setText(data.getName());
-      if(position == dataList.size() -1){
-          holder.itemView.findViewById(R.id.icon).setVisibility(View.GONE);
-      } else {
-          holder.itemView.findViewById(R.id.icon).setVisibility(View.VISIBLE);
-      }
+        TextView textView = holder.itemView.findViewById(R.id.fileName);
+        textView.setText(data.getName());
+        if (position == dataList.size() - 1) {
+            holder.itemView.findViewById(R.id.icon).setVisibility(View.GONE);
+        } else {
+            holder.itemView.findViewById(R.id.icon).setVisibility(View.VISIBLE);
+        }
     }
 }

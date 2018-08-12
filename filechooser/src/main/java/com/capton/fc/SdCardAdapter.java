@@ -20,7 +20,7 @@ public class SdCardAdapter extends BaseAdapter {
     ArrayList<String> arrayList = new ArrayList<>();
     Context context;
 
-    public SdCardAdapter(Context context,ArrayList<String> arrayList) {
+    public SdCardAdapter(Context context, ArrayList<String> arrayList) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -41,16 +41,17 @@ public class SdCardAdapter extends BaseAdapter {
     }
 
     public int itemViewWidth;
-    public int getItemViewWidth(){
+
+    public int getItemViewWidth() {
         System.out.println(itemViewWidth);
-        if(itemViewWidth == 0)
+        if (itemViewWidth == 0)
             itemViewWidth = 460;
         return itemViewWidth;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = View.inflate(context,R.layout.item_file,null);
+        convertView = View.inflate(context, R.layout.item_file, null);
 
         TextView textView = convertView.findViewById(R.id.fileName);
         textView.setTextSize(16);
@@ -58,15 +59,15 @@ public class SdCardAdapter extends BaseAdapter {
         imageView.getLayoutParams().width = ConvertUtils.dp2px(26);
         imageView.getLayoutParams().height = ConvertUtils.dp2px(30);
 
-        if(position == 0){
+        if (position == 0) {
             imageView.setImageResource(R.drawable.phone);
-        }else {
+        } else {
             imageView.setImageResource(R.drawable.sdcard);
         }
         textView.setText(arrayList.get(position));
 
-        convertView.measure(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        convertView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         itemViewWidth = convertView.getMeasuredWidth();
-            return convertView;
+        return convertView;
     }
 }
