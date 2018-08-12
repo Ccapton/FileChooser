@@ -81,8 +81,7 @@ public class FileChooserActivity extends BaseActivity<ActivityFileChooserBinding
         this.showFile = getIntent().getBooleanExtra("showFile", true);
         this.mChoosenFilePath = getIntent().getStringExtra("currentPath");
 
-        tourController = new FileTourController(this, mChoosenFilePath);
-        tourController.setShowFile(this.showFile);
+        tourController = new FileTourController(this, mChoosenFilePath, showFile);
 
         adapter = new FileAdapter(this, (ArrayList<FileInfo>) tourController.getCurrenFileInfoList(), R.layout.item_file);
         binding.fileRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

@@ -28,9 +28,10 @@ public class FileTourController {
 
     private Context mContext;
 
-    public FileTourController(Context context, String currentPath) {
+    public FileTourController(Context context, String currentPath, boolean showFile) {
 //        try {
         this.currentFile = new File(currentPath);
+        this.showFile = showFile;
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
@@ -61,10 +62,11 @@ public class FileTourController {
         currentFolderList.add(this.currentFile);
     }
 
-    public FileTourController(Context context) {
+    public FileTourController(Context context, boolean showFile) {
         this.mContext = context;
         rootFile = getRootFile();
         this.currentFile = rootFile;
+        this.showFile = showFile;
         currenFileInfoList = searchFile(this.currentFile);
         currentFolderList.add(this.currentFile);
     }
