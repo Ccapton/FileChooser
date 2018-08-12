@@ -5,16 +5,16 @@ package com.capton.fc;
  */
 
 public class FileInfo {
-    public static final String FILE_TYPE_FOLDER="type_folder";
-    public static final String FILE_TYPE_VIDEO="type_video";
-    public static final String FILE_TYPE_AUDIO="type_audio";
-    public static final String FILE_TYPE_FILE="type_file";
-    public static final String FILE_TYPE_APK="type_apk";
-    public static final String FILE_TYPE_ZIP="type_zip";
-    public static final String FILE_TYPE_RAR="type_rar";
-    public static final String FILE_TYPE_JPEG="type_jpeg";
-    public static final String FILE_TYPE_JPG="type_jpg";
-    public static final String FILE_TYPE_PNG="type_png";
+    public static final String FILE_TYPE_FOLDER = "type_folder";
+    public static final String FILE_TYPE_VIDEO = "type_video";
+    public static final String FILE_TYPE_AUDIO = "type_audio";
+    public static final String FILE_TYPE_FILE = "type_file";
+    public static final String FILE_TYPE_APK = "type_apk";
+    public static final String FILE_TYPE_ZIP = "type_zip";
+    public static final String FILE_TYPE_RAR = "type_rar";
+    public static final String FILE_TYPE_JPEG = "type_jpeg";
+    public static final String FILE_TYPE_JPG = "type_jpg";
+    public static final String FILE_TYPE_PNG = "type_png";
 
     private String fileType = FILE_TYPE_FOLDER;
 

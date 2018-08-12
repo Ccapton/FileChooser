@@ -7,10 +7,11 @@ import com.google.gson.Gson;
  */
 
 public class JsonUtil {
-    public static String objToString(Object object){
+    public static String objToString(Object object) {
         return new Gson().toJson(object);
     }
-    public static Object strToObject(String str,Class cls){
-        return new Gson().fromJson(str,cls);
+
+    public static Object strToObject(String str, Class cls) {
+        return new Gson().fromJson(str, cls);
     }
 }

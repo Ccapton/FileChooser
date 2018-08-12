@@ -80,7 +80,7 @@ public class PermissionUtils {
 
         final String requestPermission = requestPermissions[requestCode];
 
-        //如果是6.0以下的手机，ActivityCompat.checkSelfPermission()会始终等于PERMISSION_GRANTED，
+        // 如果是6.0以下的手机，ActivityCompat.checkSelfPermission()会始终等于PERMISSION_GRANTED，
         // 但是，如果用户关闭了你申请的权限，ActivityCompat.checkSelfPermission(),会导致程序崩溃(java.lang.RuntimeException: Unknown exception code: 1 msg null)，
         // 你可以使用try{}catch(){},处理异常，也可以在这个地方，低于23就什么都不做，
         // 个人建议try{}catch(){}单独处理，提示用户开启权限。
@@ -92,15 +92,13 @@ public class PermissionUtils {
         try {
             checkSelfPermission = ActivityCompat.checkSelfPermission(activity, requestPermission);
         } catch (RuntimeException e) {
-            Toast.makeText(activity, "please open this permission", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(activity, "please open this permission", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "RuntimeException:" + e.getMessage());
             return;
         }
 
         if (checkSelfPermission != PackageManager.PERMISSION_GRANTED) {
             Log.i(TAG, "ActivityCompat.checkSelfPermission != PackageManager.PERMISSION_GRANTED");
-
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, requestPermission)) {
                 Log.i(TAG, "requestPermission shouldShowRequestPermissionRationale");
@@ -110,7 +108,6 @@ public class PermissionUtils {
                 Log.d(TAG, "requestCameraPermission else");
                 ActivityCompat.requestPermissions(activity, new String[]{requestPermission}, requestCode);
             }
-
         } else {
             Log.d(TAG, "ActivityCompat.checkSelfPermission ==== PackageManager.PERMISSION_GRANTED");
             Toast.makeText(activity, "opened:" + requestPermissions[requestCode], Toast.LENGTH_SHORT).show();
@@ -124,7 +121,7 @@ public class PermissionUtils {
             return;
         }
 
-        //TODO
+        // TODO:
         Log.d(TAG, "onRequestPermissionsResult permissions length:" + permissions.length);
         Map<String, Integer> perms = new HashMap<>();
 
@@ -142,7 +139,7 @@ public class PermissionUtils {
             permissionGrant.onPermissionGranted(CODE_MULTI_PERMISSION);
         } else {
             for (int i = 0; i < notGranted.size(); i++) {
-                Log.d(TAG, "notGranted: " + i +" "+ notGranted.get(i));
+                Log.d(TAG, "notGranted: " + i + " " + notGranted.get(i));
             }
             openSettingActivity(activity, "请授予相关权限!");
         }
@@ -153,12 +150,12 @@ public class PermissionUtils {
     /**
      * 一次申请多个权限
      */
-    public static void requestMultiPermissions(final Activity activity, PermissionGrant grant,String [] permissions) {
+    public static void requestMultiPermissions(final Activity activity, PermissionGrant grant, String[] permissions) {
 
-        final List<String> permissionsList = getNoGrantedPermission(activity, false,permissions);
-        final List<String> shouldRationalePermissionsList = getNoGrantedPermission(activity, true,permissions);
+        final List<String> permissionsList = getNoGrantedPermission(activity, false, permissions);
+        final List<String> shouldRationalePermissionsList = getNoGrantedPermission(activity, true, permissions);
 
-        //TODO checkSelfPermission
+        // TODO: checkSelfPermission
         if (permissionsList == null || shouldRationalePermissionsList == null) {
             return;
         }
@@ -185,9 +182,8 @@ public class PermissionUtils {
 
     }
 
-
     private static void shouldShowRationale(final Activity activity, final int requestCode, final String requestPermission) {
-        //TODO
+        // TODO:
         String[] permissionsHint = activity.getResources().getStringArray(R.array.permissions);
         showMessageOKCancel(activity, "Rationale: " + permissionsHint[requestCode], new DialogInterface.OnClickListener() {
             @Override
@@ -207,7 +203,6 @@ public class PermissionUtils {
                 .setNegativeButton("取消", null)
                 .create()
                 .show();
-
     }
 
     /**
@@ -240,21 +235,19 @@ public class PermissionUtils {
 
         if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.i(TAG, "onRequestPermissionsResult PERMISSION_GRANTED");
-            //TODO success, do something, can use callback
+            // TODO: success, do something, can use callback
             permissionGrant.onPermissionGranted(requestCode);
 
         } else {
-            //TODO hint user this permission function
+            // TODO: hint user this permission function
             Log.i(TAG, "onRequestPermissionsResult PERMISSION NOT GRANTED");
-            //TODO
+            // TODO:
             String[] permissionsHint = activity.getResources().getStringArray(R.array.permissions);
-            openSettingActivity(activity,  "Result" + permissionsHint[requestCode]);
+            openSettingActivity(activity, "Result" + permissionsHint[requestCode]);
         }
-
     }
 
     private static void openSettingActivity(final Activity activity, String message) {
-
         showMessageOKCancel(activity, message, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -268,27 +261,23 @@ public class PermissionUtils {
         });
     }
 
-
     /**
      * @param activity
      * @param isShouldRationale true: return no granted and shouldShowRequestPermissionRationale permissions, false:return no granted and !shouldShowRequestPermissionRationale
      * @return
      */
-    public static ArrayList<String> getNoGrantedPermission(Activity activity, boolean isShouldRationale,String [] unDoPermissions) {
-
+    public static ArrayList<String> getNoGrantedPermission(Activity activity, boolean isShouldRationale, String[] unDoPermissions) {
         ArrayList<String> permissions = new ArrayList<>();
 
         for (int i = 0; i < unDoPermissions.length; i++) {
             String requestPermission = unDoPermissions[i];
 
-
-            //TODO checkSelfPermission
+            // TODO: checkSelfPermission
             int checkSelfPermission = -1;
             try {
                 checkSelfPermission = ActivityCompat.checkSelfPermission(activity, requestPermission);
             } catch (RuntimeException e) {
-                Toast.makeText(activity, "please open those permission", Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(activity, "please open those permission", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "RuntimeException:" + e.getMessage());
                 return null;
             }
@@ -301,20 +290,15 @@ public class PermissionUtils {
                     if (isShouldRationale) {
                         permissions.add(requestPermission);
                     }
-
                 } else {
-
                     if (!isShouldRationale) {
                         permissions.add(requestPermission);
                     }
                     Log.d(TAG, "shouldShowRequestPermissionRationale else");
                 }
-
             }
         }
 
         return permissions;
     }
-
 }
-

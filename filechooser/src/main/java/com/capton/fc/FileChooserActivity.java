@@ -26,8 +26,7 @@ public class FileChooserActivity extends BaseActivity<ActivityFileChooserBinding
     private CurrentFileAdapter currentFileAdapter;
 
 
-
-     @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -45,25 +44,27 @@ public class FileChooserActivity extends BaseActivity<ActivityFileChooserBinding
                 FileChooserActivity.this.finish();
             }
         });
+    }
 
-     }
+    private void setMiddleTitle() {
+        String middleTitle = getIntent().getStringExtra("title");
+        setTitle(middleTitle);
+    }
 
-     private void setMiddleTitle(){
-         String middleTitle = getIntent().getStringExtra("title");
-         setTitle(middleTitle);
-     }
-    private void setDoneText(){
+    private void setDoneText() {
         String doneText = getIntent().getStringExtra("doneText");
         setRightText(doneText);
     }
+
     private void resetThemeColor() {
-        this.themeColorRes = getIntent().getIntExtra("themeColorRes",R.color.themeColor);
+        this.themeColorRes = getIntent().getIntExtra("themeColorRes", R.color.themeColor);
         setThemeColor(themeColorRes);
-     }
-     private void resetBackIconRes(){
-        this.backIconRes = getIntent().getIntExtra("backIconRes",R.drawable.back_white);
-         setBackIcon(backIconRes);
-     }
+    }
+
+    private void resetBackIconRes() {
+        this.backIconRes = getIntent().getIntExtra("backIconRes", R.drawable.back_white);
+        setBackIcon(backIconRes);
+    }
 
     @Override
     public String[] getPermissions() {
@@ -77,25 +78,25 @@ public class FileChooserActivity extends BaseActivity<ActivityFileChooserBinding
 
     @Override
     public void setClickListener() {
-        this.showFile = getIntent().getBooleanExtra("showFile",true);
-        this.mChoosenFilePath =getIntent().getStringExtra("currentPath");
+        this.showFile = getIntent().getBooleanExtra("showFile", true);
+        this.mChoosenFilePath = getIntent().getStringExtra("currentPath");
 
-        tourController = new FileTourController(this,mChoosenFilePath);
+        tourController = new FileTourController(this, mChoosenFilePath);
         tourController.setShowFile(this.showFile);
 
-        adapter = new FileAdapter(this, (ArrayList<FileInfo>) tourController.getCurrenFileInfoList(),R.layout.item_file);
-        binding.fileRv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        adapter = new FileAdapter(this, (ArrayList<FileInfo>) tourController.getCurrenFileInfoList(), R.layout.item_file);
+        binding.fileRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.fileRv.setAdapter(adapter);
 
-        currentFileAdapter = new CurrentFileAdapter(this, (ArrayList<File>) tourController.getCurrentFolderList(),R.layout.item_current_file);
-        binding.currentPath.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        currentFileAdapter = new CurrentFileAdapter(this, (ArrayList<File>) tourController.getCurrentFolderList(), R.layout.item_current_file);
+        binding.currentPath.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.currentPath.setAdapter(currentFileAdapter);
-        binding.currentPath.scrollToPosition(tourController.getCurrentFolderList().size()-1);
+        binding.currentPath.scrollToPosition(tourController.getCurrentFolderList().size() - 1);
 
         adapter.setItemClickListener(new CommonAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                File selectFile =new File(tourController.getCurrenFileInfoList().get(position).getFilePath());
+                File selectFile = new File(tourController.getCurrenFileInfoList().get(position).getFilePath());
                 ArrayList<FileInfo> childFileInfoList = (ArrayList<FileInfo>) tourController.addCurrentFile(selectFile);
                 adapter.setData(childFileInfoList);
                 adapter.notifyDataSetChanged();
@@ -103,8 +104,8 @@ public class FileChooserActivity extends BaseActivity<ActivityFileChooserBinding
                 currentFileAdapter.setData(tourController.getCurrentFolderList());
                 currentFileAdapter.notifyDataSetChanged();
 
-                binding.currentPath.scrollToPosition(tourController.getCurrentFolderList().size()-1);
-             }
+                binding.currentPath.scrollToPosition(tourController.getCurrentFolderList().size() - 1);
+            }
         });
 
         currentFileAdapter.setItemClickListener(new CommonAdapter.OnItemClickListener() {
@@ -117,34 +118,34 @@ public class FileChooserActivity extends BaseActivity<ActivityFileChooserBinding
                 currentFileAdapter.setData(tourController.getCurrentFolderList());
                 currentFileAdapter.notifyDataSetChanged();
 
-                binding.currentPath.scrollToPosition(tourController.getCurrentFolderList().size()-1);
+                binding.currentPath.scrollToPosition(tourController.getCurrentFolderList().size() - 1);
             }
         });
 
         binding.switchSdcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ListPopupWindow listPopupWindow= new ListPopupWindow(FileChooserActivity.this);
+                final ListPopupWindow listPopupWindow = new ListPopupWindow(FileChooserActivity.this);
                 listPopupWindow.setAnchorView(v);
 
                 ArrayList<String> sdcardList = new ArrayList<>();
-                   sdcardList.add("手机存储");
-                if(FileTourController.getStoragePath(FileChooserActivity.this,true) != null)
+                sdcardList.add("手机存储");
+                if (FileTourController.getStoragePath(FileChooserActivity.this, true) != null)
                     sdcardList.add("SD卡");
-                SdCardAdapter sdCardAdapter = new SdCardAdapter(FileChooserActivity.this,sdcardList);
+                SdCardAdapter sdCardAdapter = new SdCardAdapter(FileChooserActivity.this, sdcardList);
                 listPopupWindow.setAdapter(sdCardAdapter);
                 listPopupWindow.setWidth(sdCardAdapter.getItemViewWidth());
                 //listPopupWindow.setAdapter(new ArrayAdapter<String>(FileChooserActivity.this,android.R.layout.simple_list_item_1,sdcards));
                 listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        if(tourController!=null)
+                        if (tourController != null)
                             tourController.switchSdCard(position);
-                        if(adapter!=null) {
+                        if (adapter != null) {
                             adapter.setData(tourController.getCurrenFileInfoList());
                             adapter.notifyDataSetChanged();
                         }
-                        if(currentFileAdapter!=null) {
+                        if (currentFileAdapter != null) {
                             currentFileAdapter.setData(tourController.getCurrentFolderList());
                             currentFileAdapter.notifyDataSetChanged();
                         }
@@ -152,10 +153,9 @@ public class FileChooserActivity extends BaseActivity<ActivityFileChooserBinding
                     }
                 });
                 listPopupWindow.show();
-
             }
         });
-     }
+    }
 
     @Override
     public void clickMore() {
@@ -164,11 +164,11 @@ public class FileChooserActivity extends BaseActivity<ActivityFileChooserBinding
 
     @Override
     public void clickRightText() {
-         if(tourController != null)
-        mChoosenFilePath = tourController.getCurrentFile().getAbsolutePath();
-         if(this.mFileChooser != null)
-             mFileChooser.finish(mChoosenFilePath);
-         finish();
+        if (tourController != null)
+            mChoosenFilePath = tourController.getCurrentFile().getAbsolutePath();
+        if (this.mFileChooser != null)
+            mFileChooser.finish(mChoosenFilePath);
+        finish();
     }
 
     @Override
@@ -176,11 +176,11 @@ public class FileChooserActivity extends BaseActivity<ActivityFileChooserBinding
         super.onDestroy();
         mFileChooser = null;
         System.out.println("FileChooserActivity.onDestroy");
-     }
+    }
 
     @Override
     public void onBackPressed() {
-        if(!tourController.isRootFile()) {
+        if (!tourController.isRootFile()) {
 
             List<FileInfo> currentList = tourController.backToParent();
             adapter.setData(currentList);

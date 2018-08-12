@@ -28,31 +28,31 @@ public class FileTourController {
 
     private Context mContext;
 
-    public FileTourController(Context context,String currentPath){
-        //try {
-            this.currentFile = new File(currentPath);
-        //}catch (Exception e){
-        //    e.printStackTrace();
-        //}
+    public FileTourController(Context context, String currentPath) {
+//        try {
+        this.currentFile = new File(currentPath);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
         this.mContext = context;
         rootFile = getRootFile();
         System.out.println("FileTourController.getRootFile " + rootFile.getAbsolutePath());
-        if(currentFile == null) {
+        if (currentFile == null) {
             this.currentFile = rootFile;
-        } else if(!currentFile.exists()) {
+        } else if (!currentFile.exists()) {
             this.currentFile = rootFile;
         } else
             isRootFile = false;
 
-        if(!currentFile.getAbsolutePath().equals(getRootFile().getAbsolutePath())){
+        if (!currentFile.getAbsolutePath().equals(getRootFile().getAbsolutePath())) {
             currentFolderList.add(rootFile);
             ArrayList<File> fileList = new ArrayList<>();
             File tempFile = currentFile;
-            while (!tempFile.getParent().equals(rootFile.getAbsolutePath())){
+            while (!tempFile.getParent().equals(rootFile.getAbsolutePath())) {
                 fileList.add(tempFile.getParentFile());
                 tempFile = tempFile.getParentFile();
             }
-            for (int i = fileList.size()-1; i >= 0 ; i--) {
+            for (int i = fileList.size() - 1; i >= 0; i--) {
                 currentFolderList.add(fileList.get(i));
             }
         }
@@ -60,7 +60,8 @@ public class FileTourController {
         currenFileInfoList = searchFile(this.currentFile);
         currentFolderList.add(this.currentFile);
     }
-    public FileTourController(Context context){
+
+    public FileTourController(Context context) {
         this.mContext = context;
         rootFile = getRootFile();
         this.currentFile = rootFile;
@@ -84,15 +85,16 @@ public class FileTourController {
         return currenFileInfoList;
     }
 
-    public File getRootFile(){
-        if(sdcardIndex == 1){
+    public File getRootFile() {
+        if (sdcardIndex == 1) {
             return getSDcard1();
         } else {
             return getSDcard0();
         }
     }
-    public void switchSdCard(int sdcardIndex){
-        if(sdcardIndex == 0){
+
+    public void switchSdCard(int sdcardIndex) {
+        if (sdcardIndex == 0) {
             rootFile = getSDcard0();
         } else {
             rootFile = getSDcard1();
@@ -104,14 +106,16 @@ public class FileTourController {
         currentFolderList.add(this.currentFile);
     }
 
-    public File getSDcard0(){
-       return new File(getStoragePath(mContext,false));
+    public File getSDcard0() {
+        return new File(getStoragePath(mContext, false));
     }
-    public File getSDcard1(){
-        if(getStoragePath(mContext,true) == null)
-            return new File(getStoragePath(mContext,false));
-        return new File(getStoragePath(mContext,true));
+
+    public File getSDcard1() {
+        if (getStoragePath(mContext, true) == null)
+            return new File(getStoragePath(mContext, false));
+        return new File(getStoragePath(mContext, true));
     }
+
     public static String getStoragePath(Context mContext, boolean is_removale) {
 
         StorageManager mStorageManager = (StorageManager) mContext.getSystemService(Context.STORAGE_SERVICE);
@@ -144,14 +148,14 @@ public class FileTourController {
     }
 
     public boolean isRootFile() {
-        if(isRootFile(currentFile))
+        if (isRootFile(currentFile))
             isRootFile = true;
         else
             isRootFile = false;
         return isRootFile;
     }
 
-    public void setCurrentFile(File currentFile){
+    public void setCurrentFile(File currentFile) {
         this.currentFile = currentFile;
     }
 
@@ -159,21 +163,22 @@ public class FileTourController {
         return currentFile;
     }
 
-    public   List<FileInfo> addCurrentFile(File file){
-        List<FileInfo>  fileInfoList = new ArrayList<>();
+    public List<FileInfo> addCurrentFile(File file) {
+        List<FileInfo> fileInfoList = new ArrayList<>();
         currentFile = file;
         currentFolderList.add(file);
         fileInfoList = searchFile(file);
         this.currenFileInfoList = fileInfoList;
         return fileInfoList;
     }
-    public   List<FileInfo> resetCurrentFile(int position){
-        List<FileInfo>  fileInfoList = new ArrayList<>();
-        while ( currentFolderList.size()-1 > position){
-             currentFolderList.remove(currentFolderList.size()-1);
+
+    public List<FileInfo> resetCurrentFile(int position) {
+        List<FileInfo> fileInfoList = new ArrayList<>();
+        while (currentFolderList.size() - 1 > position) {
+            currentFolderList.remove(currentFolderList.size() - 1);
         }
-        if(currentFolderList.size() != 0)
-            currentFile = new File(currentFolderList.get(currentFolderList.size()-1).getAbsolutePath());
+        if (currentFolderList.size() != 0)
+            currentFile = new File(currentFolderList.get(currentFolderList.size() - 1).getAbsolutePath());
         else
             currentFile = rootFile;
         fileInfoList = searchFile(currentFile);
@@ -181,94 +186,94 @@ public class FileTourController {
         return fileInfoList;
     }
 
-    public List<FileInfo> searchFile(File file){
+    public List<FileInfo> searchFile(File file) {
         this.currentFile = file;
-        List<FileInfo>  fileInfoList = new ArrayList<>();
+        List<FileInfo> fileInfoList = new ArrayList<>();
         File childFiles[] = file.listFiles();
-        if(childFiles != null )
-        for (int i = 0; i < childFiles.length; i++) {
-            FileInfo fileInfo = new FileInfo();
-            fileInfo.setFileName(childFiles[i].getName());
-            fileInfo.setFilePath(childFiles[i].getAbsolutePath());
-            if(childFiles[i].isDirectory()){
-                fileInfo.setFolder(true);
-                fileInfo.setFileType(FileInfo.FILE_TYPE_FOLDER);
-             } else {
-                fileInfo.setFolder(false);
-                if("mp4".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "mkv".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "avi".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "3gp".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "mov".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
-                    fileInfo.setFileType(FileInfo.FILE_TYPE_VIDEO);
-                else if("mp3".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "aac".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "amr".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "ogg".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "wma".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "wav".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "flac".equals(getFileTypeName(childFiles[i].getAbsolutePath()))||
-                        "ape".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
-                    fileInfo.setFileType(FileInfo.FILE_TYPE_AUDIO);
-                else if("apk".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
-                    fileInfo.setFileType(FileInfo.FILE_TYPE_APK);
-                else if("zip".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
-                    fileInfo.setFileType(FileInfo.FILE_TYPE_ZIP);
-                else if("rar".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
-                    fileInfo.setFileType(FileInfo.FILE_TYPE_RAR);
-                else if("jpeg".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
-                    fileInfo.setFileType(FileInfo.FILE_TYPE_JPEG);
-                else if("jpg".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
-                    fileInfo.setFileType(FileInfo.FILE_TYPE_JPG);
-                else if("png".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
-                    fileInfo.setFileType(FileInfo.FILE_TYPE_PNG);
-                else
-                    fileInfo.setFileType(FileInfo.FILE_TYPE_FILE);
-            }
-            if(this.showFile) {
+        if (childFiles != null)
+            for (int i = 0; i < childFiles.length; i++) {
+                FileInfo fileInfo = new FileInfo();
+                fileInfo.setFileName(childFiles[i].getName());
+                fileInfo.setFilePath(childFiles[i].getAbsolutePath());
+                if (childFiles[i].isDirectory()) {
+                    fileInfo.setFolder(true);
+                    fileInfo.setFileType(FileInfo.FILE_TYPE_FOLDER);
+                } else {
+                    fileInfo.setFolder(false);
+                    if ("mp4".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "mkv".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "avi".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "3gp".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "mov".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
+                        fileInfo.setFileType(FileInfo.FILE_TYPE_VIDEO);
+                    else if ("mp3".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "aac".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "amr".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "ogg".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "wma".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "wav".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "flac".equals(getFileTypeName(childFiles[i].getAbsolutePath())) ||
+                            "ape".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
+                        fileInfo.setFileType(FileInfo.FILE_TYPE_AUDIO);
+                    else if ("apk".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
+                        fileInfo.setFileType(FileInfo.FILE_TYPE_APK);
+                    else if ("zip".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
+                        fileInfo.setFileType(FileInfo.FILE_TYPE_ZIP);
+                    else if ("rar".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
+                        fileInfo.setFileType(FileInfo.FILE_TYPE_RAR);
+                    else if ("jpeg".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
+                        fileInfo.setFileType(FileInfo.FILE_TYPE_JPEG);
+                    else if ("jpg".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
+                        fileInfo.setFileType(FileInfo.FILE_TYPE_JPG);
+                    else if ("png".equals(getFileTypeName(childFiles[i].getAbsolutePath())))
+                        fileInfo.setFileType(FileInfo.FILE_TYPE_PNG);
+                    else
+                        fileInfo.setFileType(FileInfo.FILE_TYPE_FILE);
+                }
+                if (this.showFile) {
                     fileInfoList.add(fileInfo);
-            }else {
-                if (fileInfo.isFolder())
-                    fileInfoList.add(fileInfo);
+                } else {
+                    if (fileInfo.isFolder())
+                        fileInfoList.add(fileInfo);
+                }
             }
-        }
         return fileInfoList;
     }
 
-    public List<FileInfo> backToParent(){
+    public List<FileInfo> backToParent() {
         currentFile = currentFile.getParentFile();
-        if(isRootFile(currentFile))
+        if (isRootFile(currentFile))
             isRootFile = true;
         else
             isRootFile = false;
-        currentFolderList.remove(currentFolderList.size()-1);
-       // if(tourListener != null)
-       //     tourListener.onBackWard(currentFile,isRootFile);
+        currentFolderList.remove(currentFolderList.size() - 1);
+//         if(tourListener != null)
+//             tourListener.onBackWard(currentFile,isRootFile);
         return resetCurrentFile(currentFolderList.size());
     }
 
-    public boolean isRootFile(File file){
+    public boolean isRootFile(File file) {
         return rootFile.getAbsolutePath().equals(file.getAbsolutePath());
     }
 
-    private String getParentName(String path){
-        int end =  path.lastIndexOf("/") + 1;
-        return path.substring(0,end);
+    private String getParentName(String path) {
+        int end = path.lastIndexOf("/") + 1;
+        return path.substring(0, end);
     }
 
-    private String getFileTypeName(String path){
+    private String getFileTypeName(String path) {
         int start = path.lastIndexOf(".") + 1;
-        if(start == -1)
+        if (start == -1)
             return "";
         return path.substring(start);
     }
 
-   /* public void setTourListener(TourListener tourListener) {
-        this.tourListener = tourListener;
-    }
-
-    private TourListener tourListener;
-    public interface TourListener{
-        void onBackWard(File file,boolean isRootFile);
-    }*/
+//    public void setTourListener(TourListener tourListener) {
+//        this.tourListener = tourListener;
+//    }
+//
+//    private TourListener tourListener;
+//    public interface TourListener{
+//        void onBackWard(File file,boolean isRootFile);
+//    }
 }
